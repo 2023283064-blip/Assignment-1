@@ -136,10 +136,19 @@ jsp: <%= request.getAttribute("name") =%>, html stuff <%= %>
                 String intro = request.getParameter("intro");
                 if ( intro != null && !intro.isEmpty() ) {
             %>
+            
             <div class="intro-box">
                 <div class="label" style="margin-bottom: 10px;">About Me:</div>
                 <div class="value"><%= intro %></div>
             </div>
+            
+            <% } else { %>
+            
+            <div class="intro-box">
+                <div class="label" style="margin-bottom: 10px;">About Me:</div>
+                <div class="value"><i> No introduction </i> </div>
+            </div>
+            
             <% } %>
         </div>
         
