@@ -2,9 +2,11 @@
 jsp is like entire html templete but runs on server like after processing, the html will be sent to client, unlike html-javascript runs in client
 javascript: document.getElementByid("name"), .appendChild()
 jsp: <%= request.getAttribute("name") =%>, html stuff <%= %>
+el (expression language): ${profile.name}, the 'profile' is pulled from servlet with request.setAttribute(string, element). el look for string, then, javabean extract the value from the object name
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <head>
@@ -101,57 +103,39 @@ jsp: <%= request.getAttribute("name") =%>, html stuff <%= %>
     <div class="profile-card">
         <div class="header">
             <!-- pull data from ProfileServlet.java -->
-            <h1><%= request.getAttribute("name") %></h1>
-            <div class="student-id">ID: <%= request.getAttribute("studentId") %></div>
+            <h1>${profile.name}</h1>
+            <div class="student-id">ID: ${profile.studentId}</div>
         </div>
         
         <div class="content">
             <div class="info-row">
                 <div class="label">Program:</div>
-                <div class="value"><%= request.getAttribute("program") %></div>
+                <div class="value">${profile.program}</div>
             </div>
             
             <div class="info-row">
                 <div class="label">Email:</div>
-                <div class="value"><%= request.getAttribute("email") %></div>
+                <div class="value">${profile.email}</div>
             </div>
             
             <div class="info-row">
                 <div class="label">Hobbies:</div>
                 <div class="value">
-                    <% 
-                        // check if hobbies exist first or it will cause error
-                        // using getParamater() because input already a String. using getAttribute() need to declare and confirm (String) again when declaring new variable
-                        String hobbies = request.getParameter("hobbies");
-                        if ( hobbies != null && !hobbies.isEmpty() ) {
-                            out.print(hobbies);
-                        } else {
-                            out.print("Not specified");
-                        }
-                    %>
+                    ${empty profile.hobbies ? 'Not specified' : profile.hobbies}
                 </div>
             </div>
             
-            <% 
-                String intro = request.getParameter("intro");
-                if ( intro != null && !intro.isEmpty() ) {
-            %>
-            
-            <div class="intro-box">
-                <div class="label" style="margin-bottom: 10px;">About Me:</div>
-                <div class="value"><%= intro %></div>
-            </div>
-            
-            <% } else { %>
-            
-            <div class="intro-box">
-                <div class="label" style="margin-bottom: 10px;">About Me:</div>
-                <div class="value"><i> No introduction </i> </div>
-            </div>
-            
-            <% } %>
+            <c:set var="i" value="${not empty profile.intro ? profile.intro : intro}" />
+                <div class="intro-box">
+                    <div class="label" style="margin-bottom: 10px;">About Me:</div>
+                    <div class="value">
+                        ${not empty i ? i : "<i>No introduction</i>"}
+                    </div>
+                </div>
         </div>
         
-        <a href="index.html" class="back-btn">⬅ Return</a>
+        <div style="text-align: justified; padding-bottom: 20px;"> 
+            <a href="ProfileServlet" class="back-btn">☰ View All Students</a> <a href="index.html" style="color: #667eea; text-decoration: none; font-weight: bold;">+ Add New Student</a>
+        </div>
     </div>
 </body>
