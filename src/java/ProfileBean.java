@@ -29,7 +29,7 @@ public class ProfileBean implements Serializable {
         this.intro = intro;
     }
     
-    // Getters
+    // getters
     public int getId() {
         return id;
     }
@@ -66,7 +66,7 @@ public class ProfileBean implements Serializable {
         return updatedAt;
     }
 
-    // Setters
+    // setters
     public void setId(int id) {
         this.id = id;
     }

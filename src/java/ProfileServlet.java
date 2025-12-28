@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.IOException;
 import java.sql.*;
 
@@ -16,16 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author habil
- */
 @WebServlet("/ProfileServlet")
 public class ProfileServlet extends HttpServlet {
 
     //derby database connection
     private static final String DB_URL = "jdbc:derby://localhost:1527/student_profiles";
     
+    //write sql using html form
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -96,12 +87,13 @@ public class ProfileServlet extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection conn = DriverManager.getConnection(DB_URL);
             
+            //delete sql action
             if ("delete".equals(action) && studentIdParam != null) {
                 String deleteSql = "delete from profiles where student_id = ?";
                 PreparedStatement deletePstmt = conn.prepareStatement(deleteSql);
                 deletePstmt.setString(1, studentIdParam);
                 deletePstmt.executeUpdate();
-                //setting into null after finishing execute
+                //setting tempstudent id into null after finishing execute for removing from current list pulled by sql earlier
                 studentIdParam = null;
             }
             
@@ -141,7 +133,7 @@ public class ProfileServlet extends HttpServlet {
             } else { //display all
                 
                 List<ProfileBean> profileList = new ArrayList<>();
-                String sql = "SELECT * FROM profiles";
+                String sql = "select * from profiles";
 
                 // if user search name, use sql
                 if (searchName != null && !searchName.isEmpty()) {

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e3e9ff 0%, #c5cfff 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        ::placeholder {
+            color: #859094;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus, textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        
+        textarea {
+            font-family: Arial, sans-serif;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Profile Form</h1>
+        
+        <!-- using POST method -->
+        
+        <!-- html5 already have input validation, just put 'input type=' like email, url, number,
+        'form action' uses java class name instead of file name like javascript 'script src=script.js'
+        POST method send data using 'name' attribute, servlet grabs it with request.getParameter("name") -->
+        
+        <form action="ProfileServlet" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="studentId">Student ID:</label>
+                <input type="text" id="studentId" name="studentId" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="program">Program:</label>
+                <select id="program" name="program" required>
+                    <option value="" disabled selected>Select your program</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Language Studies">Language Studies</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="email@address.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="hobbies">Hobbies:</label>
+                <input type="text" id="hobbies" name="hobbies" placeholder="e.g., Reading, Gaming, Sports">
+            </div>
+            
+            <div class="form-group">
+                <label for="intro">About Me:</label>
+                <textarea id="intro" name="intro" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            
+            <button type="submit">Submit Profile</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="ProfileServlet" style="color: #667eea; text-decoration: none; font-size: 14px;">
+                View All Registered Profiles →
+            </a>
+        </div>
+        
+    </div>
+</body>
+</html>
